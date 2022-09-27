@@ -2,7 +2,7 @@ package studentdata;
 
 import java.io.IOException;
 import java.util.*;
-import utils.ExcelUtils;
+
 import org.apache.poi.openxml4j.exceptions.InvalidOperationException;
 import java.io.File;
 import org.apache.logging.log4j.LogManager;
@@ -58,7 +58,7 @@ class Student {
 	public static void excelToListConverter() throws IOException {
 
 		try {
-			@SuppressWarnings("resource")
+
 			Scanner scanner = new Scanner(System.in);
 			File file = new File("C:\\Users\\ecs\\Desktop\\ECS training\\resources\\" + "Book1.xlsx");
 			String path = file.getAbsolutePath();
@@ -99,18 +99,18 @@ class Student {
 				physicsMark[i] = excel.numcellData(i + 1, 2, path);
 				chemistryMark[i] = excel.numcellData(i + 1, 3, path);
 				mathsMark[i] = excel.numcellData(i + 1, 4, path);
-				total[i] = physicsMark[i] + chemistryMark[i] + (float)mathsMark[i];
+				total[i] = physicsMark[i] + chemistryMark[i] + (float) mathsMark[i];
 				percentage[i] = (total[i] * 100) / 300;
-				
+
 				physicsGrade[i] = excel.gradeCalc(physicsMark[i]);
-				gradeAssigner(physicsMark,physicsGradePoint,i);
-				
+				gradeAssigner(physicsMark, physicsGradePoint, i);
+
 				chemistryGrade[i] = excel.gradeCalc(chemistryMark[i]);
-				gradeAssigner(chemistryMark,chemistryGradePoint,i);
+				gradeAssigner(chemistryMark, chemistryGradePoint, i);
 
 				mathsGrade[i] = excel.gradeCalc(mathsMark[i]);
-				gradeAssigner(mathsMark,mathsGradePoint,i);
-				
+				gradeAssigner(mathsMark, mathsGradePoint, i);
+
 			}
 
 			for (int j = 0; j < rowCount; j++) {
@@ -157,14 +157,16 @@ class Student {
 					}
 				}
 			}
+			scanner.close();
 		} catch (InvalidOperationException e) {
 
 			logger.info("The path you entered doesn't exist or the file may not be an excel");
 		}
 
 	}
-	public static void gradeAssigner(int[] mark,Object[] gradePoint,int i) {
-		
+
+	public static void gradeAssigner(int[] mark, Object[] gradePoint, int i) {
+
 		ExcelUtils excel = new ExcelUtils();
 		if (mark[i] < 32) {
 
@@ -175,10 +177,7 @@ class Student {
 			gradePoint[i] = excel.gradePointCalc(mark[i]);
 
 		}
-		
-	}
-		
-	}
-	
 
+	}
 
+}
